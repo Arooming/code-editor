@@ -9,12 +9,28 @@ import { ruby } from "@codemirror/legacy-modes/mode/ruby";
 import { swift } from "@codemirror/legacy-modes/mode/swift";
 import { csharp } from "@replit/codemirror-lang-csharp";
 import { abcdef } from "@uiw/codemirror-theme-abcdef";
-import CodeMirror from "@uiw/react-codemirror";
+import CodeMirror, { EditorView } from "@uiw/react-codemirror";
 import { useState } from "react";
 import styled from "styled-components";
 
 const CodeEditor = () => {
-  const [code, setCode] = useState("// code");
+  const [code, setCode] = useState(`
+  function solution(s) {
+  const stack = [];
+
+  for (let i = 0; i < s.length; i++) {
+    if (stack.length === 0) {
+      stack.push(s[i]);
+    } else if (stack[stack.length - 1] === s[i]) {
+      stack.pop();
+    } else if (stack[stack.length - 1] !== s[i]) {
+      stack.push(s[i]);
+    }
+  }
+  return stack.length === 0 ? 1 : 0;
+}
+
+  `);
 
   // 나중에 state로 만들어서 유동적으로 바뀌게 할 예정
   const LANGUAGE = "javascript";
@@ -38,7 +54,10 @@ const CodeEditor = () => {
   const getExtensions = (language: keyof typeof LANG_LIST) => {
     // langSupport: 함수 반환
     const langSupport = LANG_LIST[language];
-    return langSupport ? [langSupport()] : [];
+    // extension에 EditorView.lineWrapping을 추가해서 CodeMirror가 줄바꿈을 지원하도록 함
+    const extension = [langSupport && langSupport(), EditorView.lineWrapping];
+
+    return extension;
   };
 
   const extensions = getExtensions(LANGUAGE);
@@ -64,20 +83,35 @@ export default CodeEditor;
 
 const CodeMirrorWrapper = styled.div`
   height: 500px;
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+
   font-size: 16px;
 
-  // 코드 활성화
+  // 전체 코드 스페이스
+  .cm-scroller {
+    word-break: break-all;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+  }
+
+  // 코드 포커싱
   .cm-activeLine {
     background-color: #1c1c1c;
   }
 
+  .cm-line::selection,
+  .cm-line > span::selection {
+    background-color: #515151 !important;
+  }
+
+  // line
   .cm-gutters {
     background-color: transparent;
     color: #9a9a9a;
   }
 
-  // line 활성화
+  // line 포커싱
   .cm-activeLineGutter {
     background-color: transparent;
   }
