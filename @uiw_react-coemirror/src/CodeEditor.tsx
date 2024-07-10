@@ -15,7 +15,7 @@ const CodeEditor = () => {
   const [code, setCode] = useState("// code");
 
   // 나중에 state로 만들어서 유동적으로 바뀌게 할 예정
-  const LANGUAGE = "kotlin";
+  const LANGUAGE = "javascript";
 
   // 상수 파일로 분리할 예정
   const LANG_LIST = {
@@ -32,7 +32,9 @@ const CodeEditor = () => {
     ruby: () => StreamLanguage.define(ruby),
   };
 
+  // extends에 항상 배열이 들어가도록 배열을 반환하는 함수
   const getExtensions = (language: keyof typeof LANG_LIST) => {
+    // langSupport: 함수 반환
     const langSupport = LANG_LIST[language];
     return langSupport ? [langSupport()] : [];
   };
