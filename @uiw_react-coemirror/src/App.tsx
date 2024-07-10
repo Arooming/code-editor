@@ -1,10 +1,7 @@
-function App() {
+import CodeEditor from "./CodeEditor";
 
-  return (
-   <div>
-    <p>test</p>
-   </div>
-  )
+function App() {
+  return <CodeEditor />;
 }
 
-export default App
+export default App;
