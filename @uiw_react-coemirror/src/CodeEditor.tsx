@@ -8,8 +8,10 @@ import { go } from "@codemirror/legacy-modes/mode/go";
 import { ruby } from "@codemirror/legacy-modes/mode/ruby";
 import { swift } from "@codemirror/legacy-modes/mode/swift";
 import { csharp } from "@replit/codemirror-lang-csharp";
+import { abcdef } from "@uiw/codemirror-theme-abcdef";
 import CodeMirror from "@uiw/react-codemirror";
 import { useState } from "react";
+import styled from "styled-components";
 
 const CodeEditor = () => {
   const [code, setCode] = useState("// code");
@@ -46,12 +48,42 @@ const CodeEditor = () => {
   };
 
   return (
-    <CodeMirror
-      value={code}
-      onChange={handleChangeCode}
-      extensions={extensions}
-    />
+    <CodeMirrorWrapper>
+      <CodeMirror
+        value={code}
+        onChange={handleChangeCode}
+        extensions={extensions}
+        theme={abcdef}
+        minHeight="500px"
+      />
+    </CodeMirrorWrapper>
   );
 };
 
 export default CodeEditor;
+
+const CodeMirrorWrapper = styled.div`
+  height: 500px;
+  overflow: auto;
+  font-size: 16px;
+
+  // 코드 활성화
+  .cm-activeLine {
+    background-color: #1c1c1c;
+  }
+
+  .cm-gutters {
+    background-color: transparent;
+    color: #9a9a9a;
+  }
+
+  // line 활성화
+  .cm-activeLineGutter {
+    background-color: transparent;
+  }
+
+  // 커서
+  .cm-cursor {
+    border-left-color: white;
+  }
+`;
