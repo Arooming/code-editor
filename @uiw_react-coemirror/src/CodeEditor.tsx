@@ -14,23 +14,7 @@ import { useState } from "react";
 import styled from "styled-components";
 
 const CodeEditor = () => {
-  const [code, setCode] = useState(`
-  function solution(s) {
-  const stack = [];
-
-  for (let i = 0; i < s.length; i++) {
-    if (stack.length === 0) {
-      stack.push(s[i]);
-    } else if (stack[stack.length - 1] === s[i]) {
-      stack.pop();
-    } else if (stack[stack.length - 1] !== s[i]) {
-      stack.push(s[i]);
-    }
-  }
-  return stack.length === 0 ? 1 : 0;
-}
-
-  `);
+  const [code, setCode] = useState(`// code`);
 
   // 나중에 state로 만들어서 유동적으로 바뀌게 할 예정
   const LANGUAGE = "javascript";
