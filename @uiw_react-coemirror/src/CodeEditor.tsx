@@ -8,7 +8,7 @@ import { go } from "@codemirror/legacy-modes/mode/go";
 import { ruby } from "@codemirror/legacy-modes/mode/ruby";
 import { swift } from "@codemirror/legacy-modes/mode/swift";
 import { csharp } from "@replit/codemirror-lang-csharp";
-import { abcdef } from "@uiw/codemirror-theme-abcdef";
+import { dracula } from "@uiw/codemirror-theme-dracula";
 import CodeMirror, { EditorView } from "@uiw/react-codemirror";
 import { useState } from "react";
 import styled from "styled-components";
@@ -56,7 +56,7 @@ const CodeEditor = () => {
         value={code}
         onChange={handleChangeCode}
         extensions={extensions}
-        theme={abcdef}
+        theme={dracula}
         minHeight="500px"
       />
     </CodeMirrorWrapper>
@@ -72,6 +72,10 @@ const CodeMirrorWrapper = styled.div`
 
   font-size: 16px;
 
+  .cm-editor {
+    background-color: #23262e;
+  }
+
   // 전체 코드 스페이스
   .cm-scroller {
     word-break: break-all;
@@ -80,7 +84,7 @@ const CodeMirrorWrapper = styled.div`
   }
 
   // 코드 포커싱
-  .cm-activeLine {
+  /* .cm-activeLine {
     background-color: #1c1c1c;
   }
 
@@ -103,5 +107,5 @@ const CodeMirrorWrapper = styled.div`
   // 커서
   .cm-cursor {
     border-left-color: white;
-  }
+  } */
 `;
